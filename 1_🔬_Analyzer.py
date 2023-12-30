@@ -1,9 +1,12 @@
 import streamlit as st
 from transformers import pipeline
 
+from core.named_entity_recognition import compute_ner
+
 st.set_page_config(
     page_title="ReviewAnalyzer",
-    page_icon="🔬"
+    page_icon="🔬",
+    layout="wide"
 )
 
 page =  """
@@ -69,11 +72,28 @@ lbl_emoji_dict = {"music_album": "🎧",
 
 
 if user_input or button_0 or button_1:
-    input_to_analyze = user_input if user_input else predefined_options[0] if button_0 else predefined_options[1]
+    input_to_analyze = predefined_options[0] if button_0 else predefined_options[1] if button_1 else user_input
+
+    if len(input_to_analyze) < 20:
+        st.warning("Remeber that the model needs to have some context. It might struggle if the input is to short")
+
     output = classifier([input_to_analyze])
     label = output[0]["label"] # type: ignore[reportOptionalSubscript]
 
     emoji = lbl_emoji_dict[label] # type: ignore[GeneralTypeIssues]
+
+    works_of_art, people = compute_ner(input_to_analyze)
+
     with st.chat_message("user", avatar=emoji):
         st.write("Classified as: [  ", label, "  ] Confidence: ", output[0]["score"]) # type: ignore[reportOptionalSubscript]
+
+        if works_of_art:
+            st.write("*", "Works of art found:")
+            for woa in works_of_art:
+                st.button(woa)
+
+        if people:
+            st.write("*", "People mentioned:")
+            for woa in people:
+                st.button(woa)
 
