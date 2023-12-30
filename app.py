@@ -38,7 +38,29 @@ user_input = st.text_input(
     )
 
 lbl_emoji_dict = {"music_album": "🎧",
-                  "apparel": "👢"}
+                  "apparel": "👢",
+                  "magazines": "📖",
+                  "camera_photo": "📽️",
+                  "health_and_personal_care": "💪",
+                  "electronics": "💻",
+                  "outdoor_living": "🌄",
+                  "video": "📽️",
+                  "toys_games": "🕹️",
+                  "sports_outdoors": "🚴",
+                  "books": "📚",
+                  "software": "💿",
+                  "baby": "🍼",
+                  "office_products": "🗃️",
+                  "musical_and_instruments": "🎷",
+                  "beauty": "🛀",
+                  "jewelry_and_watches": "💎",
+                  "kitchen": "🔪",
+                  "cell_phones_service": "📱",
+                  "computer_video_games": "🎮",
+                  "grocery_and_gourmet_food": "🥕",
+                  "tools_hardware": "🛠️",
+                  "automotive": "🚗",
+}
 
 
 if user_input or button_0 or button_1:
