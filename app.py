@@ -13,7 +13,7 @@ body {
 st.markdown(page, unsafe_allow_html=True)
 st.title("ReviewAnalyzer")
 
-@st.cache_data()
+@st.cache_resource
 def get_classifier():
     return pipeline("text-classification", model="Asteriks/distilbert-cased-reviews-v1")
 
