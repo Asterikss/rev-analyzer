@@ -1,6 +1,10 @@
 import streamlit as st
 from transformers import pipeline
-from streamlit_option_menu import option_menu
+
+st.set_page_config(
+    page_title="ReviewAnalyzer",
+    page_icon="🔬"
+)
 
 page =  """
 <style>
@@ -13,25 +17,6 @@ body {
 
 st.markdown(page, unsafe_allow_html=True)
 st.title("ReviewAnalyzer")
-
-# with st.sidebar:
-#     selected = option_menu(
-#         menu_title=None,
-#         options=["Home", "Data explorer"],
-#         icons=["house", "book"],
-#         styles={
-#             "container": {"padding": "0!important", "background-color": "#fafafa"},
-#             "icon": {"color": "orange", "font-size": "25px"}, 
-#             "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-#             "nav-link-selected": {"background-color": "green"},
-#         }
-#     )
-#
-# if selected == "Home":
-#     st.title("ReviewAnalyzer")
-# else:
-#     st.title("Data explorer")
-
 
 @st.cache_resource
 def get_classifier():
@@ -92,15 +77,3 @@ if user_input or button_0 or button_1:
     with st.chat_message("user", avatar=emoji):
         st.write("Classified as: [  ", label, "  ] Confidence: ", output[0]["score"]) # type: ignore[reportOptionalSubscript]
 
-
-#  # Insert a chat message container.
-# with st.chat_message("user"):
-#     st.write("Hello 👋")
-#     st.write(user_input)
-#     st.line_chart(np.random.randn(30, 3))
-#
-# # Display a chat input widget.
-# st.chat_input("Say something")   
-# user_input = st.chat_input("Enter a review to be analyzed")
-
-# import numpy as np
