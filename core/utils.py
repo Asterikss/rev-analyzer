@@ -78,7 +78,7 @@ def get_page_bg_data() -> str:
     <style>
     header {{visibility: hidden;}}
     [data-testid="stSidebar"] > div:first-child {{
-        background-image: url("data:image/png;base64,{get_img_as_base64("dark_bg.jpg")}");
+        background-image: url("data:image/png;base64,{get_img_as_base64("images/dark_bg.jpg")}");
         background-position: center; 
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -90,7 +90,7 @@ def get_page_bg_data() -> str:
     }}
 
     [data-testid="stAppViewContainer"] > .main {{
-        background-image: url("data:image/png;base64,{get_img_as_base64("blue_bird.jpg")}");
+        background-image: url("data:image/png;base64,{get_img_as_base64("images/blue_bird.jpg")}");
         background-position: top; 
         background-repeat: no-repeat;
         background-attachment: local;
