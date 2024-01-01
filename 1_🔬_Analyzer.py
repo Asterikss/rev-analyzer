@@ -8,7 +8,7 @@ st.set_page_config(page_title="ReviewAnalyzer", page_icon="🔬", layout="wide")
 
 st.markdown(core.utils.get_page_bg_data(), unsafe_allow_html=True)
 
-st.title(":blue[ReviewAnalyzer]")
+st.title(":blue[ReviewAnalyzer]", anchor=False)
 
 with st.sidebar:
     extract_entities = st.toggle("Extract entities", value=True)
@@ -16,18 +16,22 @@ with st.sidebar:
     num_probs = st.slider("How many probabilities to display?", 1, 4, 1)
 
 
-st.subheader("Enter a review to by analyzed below")
+st.subheader("Enter a review to by analyzed below", anchor=False)
 st.write("Or choose a predefined review:")
 
 predefined_options = core.utils.get_predefined_options()
 
 
-def clear_user_input():
-    st.session_state.user_input = ""
+def clear_memory(register: str):
+    if register == "selected_text":
+        st.session_state.selected_text = ""
+    else:
+        st.session_state.selected_text = ""
+        st.session_state.user_input = ""
 
 
-button_0 = st.button(predefined_options[0], on_click=clear_user_input)
-button_1 = st.button(predefined_options[1], on_click=clear_user_input)
+button_0 = st.button(predefined_options[0], on_click=clear_memory, args=("all",))
+button_1 = st.button(predefined_options[1], on_click=clear_memory, args=("all",))
 
 lbl_emoji_dict = core.utils.get_lbl_emoji_dict()
 
@@ -37,6 +41,8 @@ st.text_input(
     placeholder="Enter a review to be analyzed",
     label_visibility="collapsed",
     key="user_input",
+    on_change=clear_memory,
+    args=("selected_text",),
 )
 
 
