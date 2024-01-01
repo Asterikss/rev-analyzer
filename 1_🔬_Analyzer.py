@@ -4,9 +4,7 @@ import core.utils
 from core.models import query_classifier
 from core.named_entity_recognition import compute_ner
 
-st.set_page_config(page_title="ReviewAnalyzer", page_icon="🔬", layout="wide")
-
-st.markdown(core.utils.get_page_bg_data(), unsafe_allow_html=True)
+core.utils.initialize()
 
 st.title(":blue[ReviewAnalyzer]", anchor=False)
 
@@ -21,16 +19,12 @@ st.write("Or choose a predefined review:")
 
 predefined_options = core.utils.get_predefined_options()
 
-
 button_0 = st.button(
     predefined_options[0], on_click=core.utils.clear_memory, args=("all",)
 )
 button_1 = st.button(
     predefined_options[1], on_click=core.utils.clear_memory, args=("all",)
 )
-
-lbl_emoji_dict = core.utils.get_lbl_emoji_dict()
-
 
 st.text_input(
     "User input",
@@ -41,9 +35,6 @@ st.text_input(
     args=("selected_text",),
 )
 
-
-if "selected_text" not in st.session_state:
-    st.session_state.selected_text = ""
 
 if st.session_state.user_input or button_0 or button_1:
     input_to_analyze = (
@@ -62,7 +53,7 @@ if st.session_state.user_input or button_0 or button_1:
     output = query_classifier(input_to_analyze)
     label = output[1][0]
 
-    emoji = lbl_emoji_dict[label]
+    emoji = core.utils.get_lbl_emoji_dict()[label]
 
     works_of_art, people = compute_ner(input_to_analyze)
 

@@ -116,3 +116,10 @@ def clear_memory(register: str):
 
 def set_selected_state(input):
     st.session_state.selected_text = input
+
+
+def initialize():
+    st.set_page_config(page_title="ReviewAnalyzer", page_icon="🔬", layout="wide")
+    st.markdown(get_page_bg_data(), unsafe_allow_html=True)
+    if "selected_text" not in st.session_state:
+        st.session_state.selected_text = ""
