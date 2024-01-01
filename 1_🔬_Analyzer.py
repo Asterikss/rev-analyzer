@@ -6,7 +6,9 @@ from core.named_entity_recognition import compute_ner
 
 st.set_page_config(page_title="ReviewAnalyzer", page_icon="🔬", layout="wide")
 
-st.title("ReviewAnalyzer")
+st.markdown(core.utils.get_page_bg_data(), unsafe_allow_html=True)
+
+st.title(":blue[ReviewAnalyzer]")
 
 with st.sidebar:
     extract_entities = st.toggle("Extract entities", value=True)
