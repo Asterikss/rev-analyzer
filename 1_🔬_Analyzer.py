@@ -11,7 +11,7 @@ st.title("ReviewAnalyzer")
 with st.sidebar:
     extract_entities = st.toggle("Extract entities", value=True)
     predict_tone = st.toggle("Predict tone", value=True)
-    num_logits = st.slider("How many probs?", 1, 4, 1)
+    num_probs = st.slider("How many probabilities to display?", 1, 4, 1)
 
 
 st.subheader("Enter a review to by analyzed below")
@@ -72,6 +72,8 @@ if st.session_state.user_input or button_0 or button_1:
 
     with st.chat_message("user", avatar=emoji):
         st.write("Classified as: [  ", label, "  ] Confidence: ", output[0][0])
+        for i in range(1, num_probs):
+            st.markdown(f'<span style="color:grey">{output[1][i]} - {output[0][i]}</span>', unsafe_allow_html=True)
 
         if extract_entities:
             if works_of_art:
