@@ -22,16 +22,12 @@ st.write("Or choose a predefined review:")
 predefined_options = core.utils.get_predefined_options()
 
 
-def clear_memory(register: str):
-    if register == "selected_text":
-        st.session_state.selected_text = ""
-    else:
-        st.session_state.selected_text = ""
-        st.session_state.user_input = ""
-
-
-button_0 = st.button(predefined_options[0], on_click=clear_memory, args=("all",))
-button_1 = st.button(predefined_options[1], on_click=clear_memory, args=("all",))
+button_0 = st.button(
+    predefined_options[0], on_click=core.utils.clear_memory, args=("all",)
+)
+button_1 = st.button(
+    predefined_options[1], on_click=core.utils.clear_memory, args=("all",)
+)
 
 lbl_emoji_dict = core.utils.get_lbl_emoji_dict()
 
@@ -41,13 +37,9 @@ st.text_input(
     placeholder="Enter a review to be analyzed",
     label_visibility="collapsed",
     key="user_input",
-    on_change=clear_memory,
+    on_change=core.utils.clear_memory,
     args=("selected_text",),
 )
-
-
-def update_state(input):
-    st.session_state.selected_text = input
 
 
 if "selected_text" not in st.session_state:
@@ -86,12 +78,16 @@ if st.session_state.user_input or button_0 or button_1:
             if works_of_art:
                 st.write("*", "Works of art found:")
                 for text in works_of_art:
-                    st.button(text, on_click=update_state, args=(text,))
+                    st.button(
+                        text, on_click=core.utils.set_selected_state, args=(text,)
+                    )
 
             if people:
                 st.write("*", "People mentioned:")
                 for text in people:
-                    st.button(text, on_click=update_state, args=(text,))
+                    st.button(
+                        text, on_click=core.utils.set_selected_state, args=(text,)
+                    )
 
             st.success(
                 "You can click any of the phrases to search for them on the Wiki"

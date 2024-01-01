@@ -104,3 +104,15 @@ def get_page_bg_data() -> str:
     # .stDeployButton {{
     #         visibility: hidden;
     #     }}
+
+
+def clear_memory(register: str):
+    if register == "selected_text":
+        st.session_state.selected_text = ""
+    else:
+        st.session_state.selected_text = ""
+        st.session_state.user_input = ""
+
+
+def set_selected_state(input):
+    st.session_state.selected_text = input
