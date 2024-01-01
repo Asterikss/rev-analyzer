@@ -1,3 +1,11 @@
 [theme]
 base="dark"
-primaryColor="purple"
+primaryColor="#3399ff"
+# primaryColor="#0073e6"
+# primaryColor="#336699"
+# primaryColor="#0059b3"
+# primaryColor="aqua"
+# primaryColor="teal"
+
+[browser]
+gatherUsageStats = false
