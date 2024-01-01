@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 
 
 def get_id2label_dict() -> Dict[int, str]:
@@ -55,3 +55,10 @@ def get_lbl_emoji_dict() -> Dict[str, str]:
         "tools_hardware": "🛠️",
         "automotive": "🚗",
     }
+
+
+def get_predefined_options() -> List[str]:
+    return [
+        "Red Hot Chili Peppers on vinyl has been a disappointing experience.. I had to return both “By The Way” and “Stadium Arcadium” because there were skips on almost all of it.. Kind of made it seem like the record label just went cheap, which is a disservice to anyone that actually listens to their vinyl...This “Greatest Hits” compilation did not have the same problems as the other two I bought. It sounded as it should have, and there were no skips.",
+        "I've read a number of Stephen King's works over the past 15 years. King has always genuinely impressed me with his incredible eye for detail, his sense of place, and his ability to steadily pay out the rope line of a story's plot. Additionally, of course, he's the Jedi Master of creepiness. Although I was familiar with the premise of “The Stand”, it still scared me a lot",
+    ]
