@@ -99,3 +99,8 @@ def get_page_bg_data() -> str:
     """
     # Use this to remove the empty space on top of the page
     # #root > div:nth-child(1) > div > div > div > div > section > div {{padding-top: 0rem;}}
+    #
+    # Use this to remove "Deploy button (if header visibility is turned on"
+    # .stDeployButton {{
+    #         visibility: hidden;
+    #     }}
