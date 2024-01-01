@@ -55,7 +55,7 @@ if st.session_state.user_input or button_0 or button_1:
 
     emoji = core.utils.get_lbl_emoji_dict()[label]
 
-    works_of_art, people = compute_ner(input_to_analyze)
+    ner_list = compute_ner(input_to_analyze)
 
     with st.chat_message("user", avatar=emoji):
         st.write("Classified as: [  ", label, "  ] Confidence: ", output[0][0])
@@ -66,19 +66,15 @@ if st.session_state.user_input or button_0 or button_1:
             )
 
         if extract_entities:
-            if works_of_art:
-                st.write("*", "Works of art found:")
-                for text in works_of_art:
-                    st.button(
-                        text, on_click=core.utils.set_selected_state, args=(text,)
-                    )
+            ner_list_dict = core.utils.get_ner_list_dict()
 
-            if people:
-                st.write("*", "People mentioned:")
-                for text in people:
-                    st.button(
-                        text, on_click=core.utils.set_selected_state, args=(text,)
-                    )
+            for i, ner_item in enumerate(ner_list):
+                if ner_item:
+                    st.write("*", ner_list_dict[i])
+                    for text in ner_item:
+                        st.button(
+                            text, on_click=core.utils.set_selected_state, args=(text,)
+                        )
 
             st.success(
                 "You can click any of the phrases to search for them on the Wiki"

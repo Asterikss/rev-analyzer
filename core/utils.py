@@ -59,6 +59,17 @@ def get_lbl_emoji_dict() -> Dict[str, str]:
     }
 
 
+def get_ner_list_dict():
+    return {
+        0: "Works of art found:",
+        1: "People mentioned:",
+        2: "Events mentioned:",
+        3: "Products mentioned:",
+        4: "Locations mentioned:",
+        5: "Organizations mentioned:"
+    }
+
+
 def get_predefined_options() -> List[str]:
     return [
         "Red Hot Chili Peppers on vinyl has been a disappointing experience.. I had to return both “By The Way” and “Stadium Arcadium” because there were skips on almost all of it.. Kind of made it seem like the record label just went cheap, which is a disservice to anyone that actually listens to their vinyl...This “Greatest Hits” compilation did not have the same problems as the other two I bought. It sounded as it should have, and there were no skips.",

@@ -1,21 +1,30 @@
 import streamlit as st
 import spacy
+from typing import List
+
 
 @st.cache_resource
 def get_ner():
     return spacy.load("en_core_web_sm")
 
-def compute_ner(input: str):
-    ner = get_ner()
-    works_of_art = []
-    people = []
-    for ent in ner(input).ents:
-        if (ent.label_ not in ["WORK_OF_ART", "PERSON"]):
-            st.warning(f"some ent.label_s are not yet implemented {ent.text} {ent.label_}")
 
+def compute_ner(input: str) -> List[List[str]]:
+    ner = get_ner()
+
+    works_of_art, people, events, products, locations, orgs = [], [], [], [], [], []
+
+    for ent in ner(input).ents:
         if ent.label_ == "WORK_OF_ART":
             works_of_art.append(ent.text)
         elif ent.label_ == "PERSON":
             people.append(ent.text)
+        elif ent.label_ == "EVENT":
+            events.append(ent.text)
+        elif ent.label_ == "PRODUCT":
+            products.append(ent.text)
+        elif ent.label_ == "LOC":
+            locations.append(ent.text)
+        elif ent.label_ == "ORG":
+            orgs.append(ent.text)
 
-    return works_of_art, people
+    return [works_of_art, people, events, products, locations, orgs]
