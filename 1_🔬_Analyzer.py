@@ -74,7 +74,9 @@ if st.session_state.user_input or button_0 or button_1:
                     st.write("*", ner_list_dict[i])
                     for text in ner_item:
                         st.button(
-                            text, on_click=core.utils.set_state, args=("selected_text", text)
+                            text,
+                            on_click=core.utils.set_state,
+                            args=("selected_text", text),
                         )
 
             st.success(
@@ -83,7 +85,7 @@ if st.session_state.user_input or button_0 or button_1:
 
 
 if st.session_state.selected_text:
-    with st.chat_message(name="human", avatar="🔍"): # 🌐 👉 💬 💭 🔍 🔎
+    with st.chat_message(name="human", avatar="🔍"):  # 🌐 👉 💬 💭 🔍 🔎
         st.write("Phrase choosen:  " + st.session_state.selected_text)
         # st.subheader("Phrase choosen: " + st.session_state.selected_text, anchor=False)
     if not st.session_state.search_wiki:
@@ -94,7 +96,10 @@ if st.session_state.search_wiki:
     with st.spinner("..."):
         wiki_output = get_wikipedia_summary(st.session_state.selected_text)
         if wiki_output == "Page not found.":
-            st.warning(wiki_output + " There might be an extra letter or a contraction in the phrase (e.g. 's). You can tweak it and search for it again or try a different review")
+            st.warning(
+                wiki_output
+                + " There might be an extra letter or a contraction in the phrase (e.g. 's). You can tweak it and search for it again or try a different review"
+            )
             st.text_input(
                 "Wiki user input",
                 placeholder="Enter a review to be analyzed",
