@@ -3,6 +3,7 @@ import streamlit as st
 import core.utils
 from core.models import query_classifier
 from core.named_entity_recognition import compute_ner
+from core.wiki_service import get_wikipedia_summary
 
 core.utils.initialize()
 
@@ -73,7 +74,7 @@ if st.session_state.user_input or button_0 or button_1:
                     st.write("*", ner_list_dict[i])
                     for text in ner_item:
                         st.button(
-                            text, on_click=core.utils.set_selected_state, args=(text,)
+                            text, on_click=core.utils.set_state, args=("selected_text", text)
                         )
 
             st.success(
@@ -82,10 +83,28 @@ if st.session_state.user_input or button_0 or button_1:
 
 
 if st.session_state.selected_text:
-    st.subheader("Phrase choosen: " + st.session_state.selected_text)
-    search_wiki = st.button("Search Wiki")
+    with st.chat_message(name="human", avatar="🔍"): # 🌐 👉 💬 💭 🔍 🔎
+        st.write("Phrase choosen:  " + st.session_state.selected_text)
+        # st.subheader("Phrase choosen: " + st.session_state.selected_text, anchor=False)
+    if not st.session_state.search_wiki:
+        st.button("Search Wiki", on_click=core.utils.set_state, args=("search_wiki",))
 
-    if search_wiki:
-        with st.spinner("4Wait for it..."):
-            st.write(st.session_state.selected_text)
-            st.success("Searching ...")
+
+if st.session_state.search_wiki:
+    with st.spinner("..."):
+        wiki_output = get_wikipedia_summary(st.session_state.selected_text)
+        if wiki_output == "Page not found.":
+            st.warning(wiki_output + " There might be an extra letter or a contraction in the phrase (e.g. 's). You can tweak it and search for it again or try a different review")
+            st.text_input(
+                "Wiki user input",
+                placeholder="Enter a review to be analyzed",
+                label_visibility="collapsed",
+                value=st.session_state.selected_text,
+                key="wiki_user_input",
+                max_chars=100,
+                on_change=core.utils.wiki_user_input_fn,
+            )
+
+        else:
+            with st.chat_message(name="human", avatar="📜"):
+                st.write(wiki_output)

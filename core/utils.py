@@ -66,7 +66,7 @@ def get_ner_list_dict():
         2: "Events mentioned:",
         3: "Products mentioned:",
         4: "Locations mentioned:",
-        5: "Organizations mentioned:"
+        5: "Organizations mentioned:",
     }
 
 
@@ -88,6 +88,7 @@ def get_page_bg_data() -> str:
     return f"""
     <style>
     header {{visibility: hidden;}}
+    footer {{visibility: hidden;}}
     [data-testid="stSidebar"] > div:first-child {{
         background-image: url("data:image/png;base64,{get_img_as_base64("images/dark_bg.jpg")}");
         background-position: center; 
@@ -123,10 +124,24 @@ def clear_memory(register: str):
     else:
         st.session_state.selected_text = ""
         st.session_state.user_input = ""
+        st.session_state.search_wiki = False
 
 
-def set_selected_state(input):
-    st.session_state.selected_text = input
+def set_state(state, content=None):
+    if state == "selected_text":
+        if content == None:
+            st.warning(
+                "When setting selected_text the content variable shouldn't be None"
+            )
+        else:
+            st.session_state.selected_text = content
+    elif state == "search_wiki":
+        st.session_state.search_wiki = True
+
+
+def wiki_user_input_fn():
+    st.session_state.search_wiki = False
+    st.session_state.selected_text = st.session_state.wiki_user_input
 
 
 def initialize():
@@ -134,3 +149,5 @@ def initialize():
     st.markdown(get_page_bg_data(), unsafe_allow_html=True)
     if "selected_text" not in st.session_state:
         st.session_state.selected_text = ""
+    if "search_wiki" not in st.session_state:
+        st.session_state.search_wiki = False
