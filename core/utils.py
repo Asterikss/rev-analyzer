@@ -121,6 +121,7 @@ def get_page_bg_data() -> str:
 def clear_memory(register: str):
     if register == "selected_text":
         st.session_state.selected_text = ""
+        st.session_state.search_wiki = False
     else:
         st.session_state.selected_text = ""
         st.session_state.user_input = ""
