@@ -137,6 +137,8 @@ def set_state(state, content=None):
             st.session_state.selected_text = content
     elif state == "search_wiki":
         st.session_state.search_wiki = True
+    else:
+        st.warning(f"This state does not exist (set_state(), {state}")
 
 
 def wiki_user_input_fn():
