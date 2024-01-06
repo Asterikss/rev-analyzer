@@ -4,6 +4,7 @@ import core.utils
 from core.models import query_classifier
 from core.named_entity_recognition import compute_ner
 from core.wiki_service import get_wikipedia_summary
+from core.sentiment import get_naive_sentiment
 
 core.utils.initialize()
 
@@ -70,6 +71,17 @@ if st.session_state.user_input or pressed_button_index is not None:
                 f'<span style="color:grey">{output[1][i]} - {output[0][i]}</span>',
                 unsafe_allow_html=True,
             )
+
+        if predict_sentiment:
+            polarity_scores = get_naive_sentiment(input_to_analyze)
+
+            st.markdown("""<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """, unsafe_allow_html=True)
+            score = polarity_scores["compound"]
+            score_value = ":green[Positive]" if score >= 0.2 else ":red[Negative]" if score <= -0.2 else ":orange[Neutral]"
+
+            with st.container(border=True):
+                st.write("Predicted sentiment: ", score_value, f" ({score})")
+                st.write("Details: negative-", polarity_scores["neg"], " neutral-", polarity_scores["neu"], "positive-", polarity_scores["pos"])
 
         if extract_entities:
             ner_list_dict = core.utils.get_ner_list_dict()
