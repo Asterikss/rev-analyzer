@@ -1,6 +1,7 @@
 import streamlit as st
 from typing import Dict, List
 import base64
+from enum import Enum
 
 
 def get_id2label_dict() -> Dict[int, str]:
@@ -154,3 +155,9 @@ def initialize():
         st.session_state.selected_text = ""
     if "search_wiki" not in st.session_state:
         st.session_state.search_wiki = False
+
+
+class Model(Enum):
+    LR = 1
+    NB = 2
+    SVM = 3
