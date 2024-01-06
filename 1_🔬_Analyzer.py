@@ -4,7 +4,7 @@ import core.utils
 from core.models import query_classifier
 from core.named_entity_recognition import compute_ner
 from core.wiki_service import get_wikipedia_summary
-from core.sentiment import get_naive_sentiment
+from core.sentiment import get_lr_prediction, get_naive_sentiment
 
 core.utils.initialize()
 
@@ -14,6 +14,9 @@ with st.sidebar:
     predict_sentiment = st.toggle("Predict sentiment", value=True)
     extract_entities = st.toggle("Extract entities", value=True)
     num_probs = st.slider("How many probabilities to display?", 1, 4, 1)
+    with st.expander("Models in use (sentiment)"):
+        naive = st.toggle("Naive prediction", value=True)
+        lr = st.toggle("Linear regression", value=True)
     with st.expander("Additional settings"):
         if predict_sentiment:
             values = st.slider(
@@ -40,7 +43,7 @@ for i, tab in enumerate(tabs):
             args=("all",),
         )
 
-st.text_area(  # used to be text_input
+st.text_area(
     "User input",
     placeholder="Enter a review to be analyzed",
     label_visibility="collapsed",
@@ -79,32 +82,42 @@ if st.session_state.user_input or pressed_button_index is not None:
                 unsafe_allow_html=True,
             )
 
-        if predict_sentiment:
-            polarity_scores = get_naive_sentiment(input_to_analyze)
-
+        if predict_sentiment and any([lr, naive]):
             st.markdown(
                 """<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """,
                 unsafe_allow_html=True,
             )
-            score = polarity_scores["compound"]
-            score_value = (
-                ":green[Positive]"
-                if score >= 0.2
-                else ":red[Negative]"
-                if score <= -0.2
-                else ":orange[Neutral]"
-            )
 
             with st.container(border=True):
-                st.write("Predicted sentiment: ", score_value, f" ({score})")
-                st.write(
-                    "Details: negative-",
-                    polarity_scores["neg"],
-                    " neutral-",
-                    polarity_scores["neu"],
-                    "positive-",
-                    polarity_scores["pos"],
-                )
+                st.write("*", "Predicted sentiment:")
+                if naive:
+                    polarity_scores = get_naive_sentiment(input_to_analyze)
+
+                    score = polarity_scores["compound"]
+
+                    score_value = (
+                        ":green[Positive]"
+                        if score >= 0.2
+                        else ":red[Negative]"
+                        if score <= -0.2
+                        else ":orange[Neutral]"
+                    )
+                    st.write(
+                        "Naive prediction: ",
+                        score_value,
+                        f" ({score})",
+                        "Details: negative-",
+                        polarity_scores["neg"],
+                        " neutral-",
+                        polarity_scores["neu"],
+                        "positive-",
+                        polarity_scores["pos"],
+                    )
+
+                if lr:
+                    st.write(
+                        f"Linear regression: {':green[Positive]' if get_lr_prediction(input_to_analyze) == 1.0 else ':red[Negative]'}"
+                    )
 
         if extract_entities:
             st.markdown(
@@ -129,7 +142,7 @@ if st.session_state.user_input or pressed_button_index is not None:
 
                 if any(item for item in ner_list):
                     st.success(
-                        "You can click any of the phrases to search for them on the Wiki (BETA)"
+                        "You can click any of the phrases to search for them using Wiki corpuse (BETA)"
                     )
 
 
