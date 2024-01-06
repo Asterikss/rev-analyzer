@@ -6,9 +6,9 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 @st.cache_data
 def get_sid():
     try:
-        nltk.data.find('sentiment/vader_lexicon.zip')
+        nltk.data.find("sentiment/vader_lexicon.zip")
     except LookupError:
-        nltk.download('vader_lexicon')
+        nltk.download("vader_lexicon")
     return SentimentIntensityAnalyzer()
 
 

@@ -16,7 +16,13 @@ with st.sidebar:
     num_probs = st.slider("How many probabilities to display?", 1, 4, 1)
     with st.expander("Additional settings"):
         if predict_sentiment:
-            values = st.slider('Select a range of values for sentiment analysis score', -0.9, 0.9, (-0.2, 0.2), step=0.1)
+            values = st.slider(
+                "Select a range of values for sentiment analysis score",
+                -0.9,
+                0.9,
+                (-0.2, 0.2),
+                step=0.1,
+            )
 
 
 st.subheader("Enter a review to by analyzed below", anchor=False)
@@ -34,7 +40,7 @@ for i, tab in enumerate(tabs):
             args=("all",),
         )
 
-st.text_input(
+st.text_area(  # used to be text_input
     "User input",
     placeholder="Enter a review to be analyzed",
     label_visibility="collapsed",
@@ -76,23 +82,41 @@ if st.session_state.user_input or pressed_button_index is not None:
         if predict_sentiment:
             polarity_scores = get_naive_sentiment(input_to_analyze)
 
-            st.markdown("""<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """, unsafe_allow_html=True)
+            st.markdown(
+                """<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """,
+                unsafe_allow_html=True,
+            )
             score = polarity_scores["compound"]
-            score_value = ":green[Positive]" if score >= 0.2 else ":red[Negative]" if score <= -0.2 else ":orange[Neutral]"
+            score_value = (
+                ":green[Positive]"
+                if score >= 0.2
+                else ":red[Negative]"
+                if score <= -0.2
+                else ":orange[Neutral]"
+            )
 
             with st.container(border=True):
                 st.write("Predicted sentiment: ", score_value, f" ({score})")
-                st.write("Details: negative-", polarity_scores["neg"], " neutral-", polarity_scores["neu"], "positive-", polarity_scores["pos"])
+                st.write(
+                    "Details: negative-",
+                    polarity_scores["neg"],
+                    " neutral-",
+                    polarity_scores["neu"],
+                    "positive-",
+                    polarity_scores["pos"],
+                )
 
         if extract_entities:
-            st.markdown("""<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """, unsafe_allow_html=True)
+            st.markdown(
+                """<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """,
+                unsafe_allow_html=True,
+            )
 
             ner_list = compute_ner(input_to_analyze)
 
             ner_list_dict = core.utils.get_ner_list_dict()
 
             with st.container(border=True):
-
                 for i, ner_item in enumerate(ner_list):
                     if ner_item:
                         st.write("*", ner_list_dict[i])
