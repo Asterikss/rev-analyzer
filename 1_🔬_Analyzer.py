@@ -11,9 +11,12 @@ core.utils.initialize()
 st.title(":blue[ReviewAnalyzer]", anchor=False)
 
 with st.sidebar:
+    predict_sentiment = st.toggle("Predict sentiment", value=True)
     extract_entities = st.toggle("Extract entities", value=True)
-    predict_tone = st.toggle("Predict tone", value=True)
     num_probs = st.slider("How many probabilities to display?", 1, 4, 1)
+    with st.expander("Additional settings"):
+        if predict_sentiment:
+            values = st.slider('Select a range of values for sentiment analysis score', -0.9, 0.9, (-0.2, 0.2), step=0.1)
 
 
 st.subheader("Enter a review to by analyzed below", anchor=False)
@@ -62,8 +65,6 @@ if st.session_state.user_input or pressed_button_index is not None:
 
     emoji = core.utils.get_lbl_emoji_dict()[label]
 
-    ner_list = compute_ner(input_to_analyze)
-
     with st.chat_message("user", avatar=emoji):
         st.write("Classified as: [  ", label, "  ] Confidence: ", output[0][0])
         for i in range(1, num_probs):
@@ -84,22 +85,28 @@ if st.session_state.user_input or pressed_button_index is not None:
                 st.write("Details: negative-", polarity_scores["neg"], " neutral-", polarity_scores["neu"], "positive-", polarity_scores["pos"])
 
         if extract_entities:
+            st.markdown("""<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """, unsafe_allow_html=True)
+
+            ner_list = compute_ner(input_to_analyze)
+
             ner_list_dict = core.utils.get_ner_list_dict()
 
-            for i, ner_item in enumerate(ner_list):
-                if ner_item:
-                    st.write("*", ner_list_dict[i])
-                    for text in ner_item:
-                        st.button(
-                            text,
-                            on_click=core.utils.set_state,
-                            args=("selected_text", text),
-                        )
+            with st.container(border=True):
 
-            if any(item for item in ner_list):
-                st.success(
-                    "You can click any of the phrases to search for them on the Wiki"
-                )
+                for i, ner_item in enumerate(ner_list):
+                    if ner_item:
+                        st.write("*", ner_list_dict[i])
+                        for text in ner_item:
+                            st.button(
+                                text,
+                                on_click=core.utils.set_state,
+                                args=("selected_text", text),
+                            )
+
+                if any(item for item in ner_list):
+                    st.success(
+                        "You can click any of the phrases to search for them on the Wiki (BETA)"
+                    )
 
 
 if st.session_state.selected_text:
