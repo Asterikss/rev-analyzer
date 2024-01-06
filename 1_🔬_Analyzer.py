@@ -1,10 +1,11 @@
 import streamlit as st
 
 import core.utils
+from core.utils import Model
 from core.models import query_classifier
 from core.named_entity_recognition import compute_ner
 from core.wiki_service import get_wikipedia_summary
-from core.sentiment import get_lr_prediction, get_naive_sentiment
+from core.sentiment import get_sentiment_prediction, get_naive_sentiment
 
 core.utils.initialize()
 
@@ -14,13 +15,21 @@ with st.sidebar:
     predict_sentiment = st.toggle("Predict sentiment", value=True)
     extract_entities = st.toggle("Extract entities", value=True)
     num_probs = st.slider("How many probabilities to display?", 1, 4, 1)
-    with st.expander("Models in use (sentiment)"):
-        naive = st.toggle("Naive prediction", value=True)
-        lr = st.toggle("Linear regression", value=True)
+    with st.expander("Models in use"):
+        if predict_sentiment:
+            naive = st.toggle("Naive prediction", value=True)
+            lr = st.toggle("Linear regression", value=True)
+            nbayes = st.toggle("Naive Bayes", value=True)
+            svm = st.toggle("SVM", value=True)
+        else:
+            naive = st.toggle("Naive prediction", value=False, disabled=True)
+            lr = st.toggle("Linear regression", value=False, disabled=True)
+            nbayes = st.toggle("Naive Bayes", value=False, disabled=True)
+            svm = st.toggle("SVM", value=False, disabled=True)
     with st.expander("Additional settings"):
         if predict_sentiment:
             values = st.slider(
-                "Select a range of values for sentiment analysis score",
+                'Select a range for "Neutral" for naive sentiment analysis',
                 -0.9,
                 0.9,
                 (-0.2, 0.2),
@@ -82,7 +91,7 @@ if st.session_state.user_input or pressed_button_index is not None:
                 unsafe_allow_html=True,
             )
 
-        if predict_sentiment and any([lr, naive]):
+        if predict_sentiment and any([lr, naive, nbayes]):
             st.markdown(
                 """<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """,
                 unsafe_allow_html=True,
@@ -116,7 +125,17 @@ if st.session_state.user_input or pressed_button_index is not None:
 
                 if lr:
                     st.write(
-                        f"Linear regression: {':green[Positive]' if get_lr_prediction(input_to_analyze) == 1.0 else ':red[Negative]'}"
+                        f"Linear regression: {':green[Positive]' if get_sentiment_prediction(input_to_analyze, Model.LR) == 1.0 else ':red[Negative]'}"
+                    )
+
+                if nbayes:
+                    st.write(
+                        f"Naive Bayes: {':green[Positive]' if get_sentiment_prediction(input_to_analyze, Model.NB) == 1.0 else ':red[Negative]'}"
+                    )
+
+                if svm:
+                    st.write(
+                        f"Support Vector Machine: {':green[Positive]' if get_sentiment_prediction(input_to_analyze, Model.SVM) == 1.0 else ':red[Negative]'}"
                     )
 
         if extract_entities:
