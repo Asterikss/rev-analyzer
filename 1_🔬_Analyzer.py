@@ -1,18 +1,40 @@
 import streamlit as st
 
 import core.utils
+from core.utils import Model
 from core.models import query_classifier
 from core.named_entity_recognition import compute_ner
 from core.wiki_service import get_wikipedia_summary
+from core.sentiment import get_sentiment_prediction, get_naive_sentiment
 
 core.utils.initialize()
 
 st.title(":blue[ReviewAnalyzer]", anchor=False)
 
 with st.sidebar:
+    predict_sentiment = st.toggle("Predict sentiment", value=True)
     extract_entities = st.toggle("Extract entities", value=True)
-    predict_tone = st.toggle("Predict tone", value=True)
     num_probs = st.slider("How many probabilities to display?", 1, 4, 1)
+    with st.expander("Models in use"):
+        if predict_sentiment:
+            naive = st.toggle("Naive prediction", value=True)
+            lr = st.toggle("Linear regression", value=True)
+            nbayes = st.toggle("Naive Bayes", value=True)
+            svm = st.toggle("SVM", value=True)
+        else:
+            naive = st.toggle("Naive prediction", value=False, disabled=True)
+            lr = st.toggle("Linear regression", value=False, disabled=True)
+            nbayes = st.toggle("Naive Bayes", value=False, disabled=True)
+            svm = st.toggle("SVM", value=False, disabled=True)
+    with st.expander("Additional settings"):
+        if predict_sentiment:
+            values = st.slider(
+                'Select a range for "Neutral" for naive sentiment analysis',
+                -0.9,
+                0.9,
+                (-0.2, 0.2),
+                step=0.1,
+            )
 
 
 st.subheader("Enter a review to by analyzed below", anchor=False)
@@ -30,7 +52,7 @@ for i, tab in enumerate(tabs):
             args=("all",),
         )
 
-st.text_input(
+st.text_area(
     "User input",
     placeholder="Enter a review to be analyzed",
     label_visibility="collapsed",
@@ -61,8 +83,6 @@ if st.session_state.user_input or pressed_button_index is not None:
 
     emoji = core.utils.get_lbl_emoji_dict()[label]
 
-    ner_list = compute_ner(input_to_analyze)
-
     with st.chat_message("user", avatar=emoji):
         st.write("Classified as: [  ", label, "  ] Confidence: ", output[0][0])
         for i in range(1, num_probs):
@@ -71,23 +91,78 @@ if st.session_state.user_input or pressed_button_index is not None:
                 unsafe_allow_html=True,
             )
 
+        if predict_sentiment and any([lr, naive, nbayes]):
+            st.markdown(
+                """<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """,
+                unsafe_allow_html=True,
+            )
+
+            with st.container(border=True):
+                st.write("*", "Predicted sentiment:")
+                if naive:
+                    polarity_scores = get_naive_sentiment(input_to_analyze)
+
+                    score = polarity_scores["compound"]
+
+                    score_value = (
+                        ":green[Positive]"
+                        if score >= 0.2
+                        else ":red[Negative]"
+                        if score <= -0.2
+                        else ":orange[Neutral]"
+                    )
+                    st.write(
+                        "Naive prediction: ",
+                        score_value,
+                        f" ({score})",
+                        "Details: negative-",
+                        polarity_scores["neg"],
+                        " neutral-",
+                        polarity_scores["neu"],
+                        "positive-",
+                        polarity_scores["pos"],
+                    )
+
+                if lr:
+                    st.write(
+                        f"Linear regression: {':green[Positive]' if get_sentiment_prediction(input_to_analyze, Model.LR) == 1.0 else ':red[Negative]'}"
+                    )
+
+                if nbayes:
+                    st.write(
+                        f"Naive Bayes: {':green[Positive]' if get_sentiment_prediction(input_to_analyze, Model.NB) == 1.0 else ':red[Negative]'}"
+                    )
+
+                if svm:
+                    st.write(
+                        f"Support Vector Machine: {':green[Positive]' if get_sentiment_prediction(input_to_analyze, Model.SVM) == 1.0 else ':red[Negative]'}"
+                    )
+
         if extract_entities:
+            st.markdown(
+                """<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """,
+                unsafe_allow_html=True,
+            )
+
+            ner_list = compute_ner(input_to_analyze)
+
             ner_list_dict = core.utils.get_ner_list_dict()
 
-            for i, ner_item in enumerate(ner_list):
-                if ner_item:
-                    st.write("*", ner_list_dict[i])
-                    for text in ner_item:
-                        st.button(
-                            text,
-                            on_click=core.utils.set_state,
-                            args=("selected_text", text),
-                        )
+            with st.container(border=True):
+                for i, ner_item in enumerate(ner_list):
+                    if ner_item:
+                        st.write("*", ner_list_dict[i])
+                        for text in ner_item:
+                            st.button(
+                                text,
+                                on_click=core.utils.set_state,
+                                args=("selected_text", text),
+                            )
 
-            if any(item for item in ner_list):
-                st.success(
-                    "You can click any of the phrases to search for them on the Wiki"
-                )
+                if any(item for item in ner_list):
+                    st.success(
+                        "You can click any of the phrases to search for them using Wiki corpuse (BETA)"
+                    )
 
 
 if st.session_state.selected_text:
