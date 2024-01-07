@@ -149,7 +149,12 @@ def wiki_user_input_fn():
 
 
 def initialize():
-    st.set_page_config(page_title="ReviewAnalyzer", page_icon="🔬", layout="wide")
+    st.set_page_config(
+        page_title="ReviewAnalyzer",
+        page_icon="🔬",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
     st.markdown(get_page_bg_data(), unsafe_allow_html=True)
     if "selected_text" not in st.session_state:
         st.session_state.selected_text = ""
