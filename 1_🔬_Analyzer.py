@@ -7,7 +7,7 @@ from core.named_entity_recognition import compute_ner
 from core.wiki_service import get_wikipedia_summary
 from core.sentiment import get_sentiment_prediction, get_naive_sentiment
 
-core.utils.initialize()
+core.utils.initialize("Analyzer")
 
 st.title(":blue[ReviewAnalyzer]", anchor=False)
 

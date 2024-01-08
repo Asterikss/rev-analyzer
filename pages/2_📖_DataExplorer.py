@@ -1,15 +1,11 @@
 import streamlit as st
 import plotly.express as px
-from core.utils import get_vc_classificatioin_dict
+from core.utils import initialize, get_vc_classificatioin_dict
 
-st.set_page_config(
-    page_title="DataExplorer",
-    page_icon="📖",
-    layout="wide",
-)
+initialize("DataExplorer")
 
 st.title("DataExplorer", anchor=False)
-st.header("Classification", anchor=False, divider="red")
+st.header("Classification", anchor=False, divider="rainbow")
 
 vc_classificatioin_dict = get_vc_classificatioin_dict()
 

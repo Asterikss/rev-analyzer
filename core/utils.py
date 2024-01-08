@@ -85,39 +85,49 @@ def get_img_as_base64(file):
     return base64.b64encode(data).decode()
 
 
-def get_page_bg_data() -> str:
-    return f"""
-    <style>
-    header {{visibility: hidden;}}
-    footer {{visibility: hidden;}}
-    [data-testid="stSidebar"] > div:first-child {{
-        background-image: url("data:image/png;base64,{get_img_as_base64("images/dark_bg.jpg")}");
-        background-position: center; 
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: top left;
-    }}
+def get_page_bg_data(page: str) -> str:
+    if page == "Analyzer":
+        return f"""
+        <style>
+        header {{visibility: hidden;}}
+        footer {{visibility: hidden;}}
+        [data-testid="stSidebar"] > div:first-child {{
+            background-image: url("data:image/png;base64,{get_img_as_base64("images/dark_bg.jpg")}");
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: top left;
+        }}
 
-    [data-testid="stHeader"] {{
-        background: rgba(0,0,0,0);
-    }}
+        [data-testid="stHeader"] {{
+            background: rgba(0,0,0,0);
+        }}
 
-    [data-testid="stAppViewContainer"] > .main {{
-        background-image: url("data:image/png;base64,{get_img_as_base64("images/blue_bird.jpg")}");
-        background-position: top; 
-        background-repeat: no-repeat;
-        background-attachment: local;
-    }}
-    </style>
-    """
-    # Use this to remove the empty space on top of the page
-    # #root > div:nth-child(1) > div > div > div > div > section > div {{padding-top: 0rem;}}
-    #
-    # Use this to remove "Deploy button (if header visibility is turned on"
-    # .stDeployButton {{
-    #         visibility: hidden;
-    #     }}
-
+        [data-testid="stAppViewContainer"] > .main {{
+            background-image: url("data:image/png;base64,{get_img_as_base64("images/blue_bird.jpg")}");
+            background-position: top; 
+            background-repeat: no-repeat;
+            background-attachment: local;
+        }}
+        </style>
+        """
+        # Use this to remove the empty space on top of the page
+        # #root > div:nth-child(1) > div > div > div > div > section > div {{padding-top: 0rem;}}
+        #
+        # Use this to remove "Deploy button (if header visibility is turned on"
+        # .stDeployButton {{
+        #         visibility: hidden;
+        #     }}
+    elif page == "DataExplorer":
+        return f"""
+        <style>
+        header {{visibility: hidden;}}
+        footer {{visibility: hidden;}}
+        #root > div:nth-child(1) > div > div > div > div > section > div {{padding-top: 0rem;}}
+        </style>
+        """
+    return ""
+    
 
 def clear_memory(register: str):
     if register == "selected_text":
@@ -148,18 +158,27 @@ def wiki_user_input_fn():
     st.session_state.selected_text = st.session_state.wiki_user_input
 
 
-def initialize():
-    st.set_page_config(
-        page_title="ReviewAnalyzer",
-        page_icon="🔬",
-        layout="wide",
-        initial_sidebar_state="expanded",
-    )
-    st.markdown(get_page_bg_data(), unsafe_allow_html=True)
-    if "selected_text" not in st.session_state:
-        st.session_state.selected_text = ""
-    if "search_wiki" not in st.session_state:
-        st.session_state.search_wiki = False
+def initialize(page: str) -> None:
+    if page == "Analyzer":
+        st.set_page_config(
+            page_title="ReviewAnalyzer",
+            page_icon="🔬",
+            layout="wide",
+            initial_sidebar_state="expanded",
+        )
+        st.markdown(get_page_bg_data("Analyzer"), unsafe_allow_html=True)
+        if "selected_text" not in st.session_state:
+            st.session_state.selected_text = ""
+        if "search_wiki" not in st.session_state:
+            st.session_state.search_wiki = False
+    elif page=="DataExplorer":
+        st.set_page_config(
+            page_title="DataExplorer",
+            page_icon="📖",
+            layout="wide",
+            initial_sidebar_state="expanded",
+        )
+        st.markdown(get_page_bg_data("DataExplorer"), unsafe_allow_html=True)
 
 
 class Model(Enum):
