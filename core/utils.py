@@ -127,7 +127,7 @@ def get_page_bg_data(page: str) -> str:
         </style>
         """
     return ""
-    
+
 
 def clear_memory(register: str):
     if register == "selected_text":
@@ -171,7 +171,7 @@ def initialize(page: str) -> None:
             st.session_state.selected_text = ""
         if "search_wiki" not in st.session_state:
             st.session_state.search_wiki = False
-    elif page=="DataExplorer":
+    elif page == "DataExplorer":
         st.set_page_config(
             page_title="DataExplorer",
             page_icon="📖",
@@ -190,54 +190,93 @@ class Model(Enum):
 @st.cache_data
 def get_vc_classificatioin_dict() -> Dict:
     return {
-    "Class": [
-        "magazines",
-        "camera_photo",
-        "office_products",
-        "kitchen",
-        "cell_phones_service",
-        "computer_video_games",
-        "grocery_and_gourmet_food",
-        "tools_hardware",
-        "automotive",
-        "music_album",
-        "health_and_personal_care",
-        "electronics",
-        "outdoor_living",
-        "video",
-        "apparel",
-        "toys_games",
-        "sports_outdoors",
-        "books",
-        "software",
-        "baby",
-        "musical_and_instruments",
-        "beauty",
-        "jewelry_and_watches",
-    ],
-    "Frequency": [
-        779,
-        821,
-        122,
-        774,
-        351,
-        604,
-        934,
-        4,
-        233,
-        832,
-        763,
-        787,
-        488,
-        851,
-        672,
-        830,
-        799,
-        854,
-        699,
-        570,
-        73,
-        587,
-        393,
-    ],
-}
+        "Class": [
+            "magazines",
+            "camera_photo",
+            "office_products",
+            "kitchen",
+            "cell_phones_service",
+            "computer_video_games",
+            "grocery_and_gourmet_food",
+            "tools_hardware",
+            "automotive",
+            "music_album",
+            "health_and_personal_care",
+            "electronics",
+            "outdoor_living",
+            "video",
+            "apparel",
+            "toys_games",
+            "sports_outdoors",
+            "books",
+            "software",
+            "baby",
+            "musical_and_instruments",
+            "beauty",
+            "jewelry_and_watches",
+        ],
+        "Frequency": [
+            779,
+            821,
+            122,
+            774,
+            351,
+            604,
+            934,
+            4,
+            233,
+            832,
+            763,
+            787,
+            488,
+            851,
+            672,
+            830,
+            799,
+            854,
+            699,
+            570,
+            73,
+            587,
+            393,
+        ],
+    }
+
+
+def get_len_bins_classification_dict() -> Dict:
+    return {
+        "Bin": [
+            "(0, 200]",
+            "(200, 300]",
+            "(300, 400]",
+            "(400, 500]",
+            "(500, 600]",
+            "(600, 700]",
+            "(700, 800]",
+            "(800, 900]",
+            "(900, 1000]",
+            "(1000, 1500]",
+            "(1500, 2000]",
+            "(2000, 5000]",
+            "(5000, 10000]",
+            "(10000, 20000]",
+            "(20000, 31154]",
+        ],
+        "Frequency": [
+            1361,
+            2622,
+            2149,
+            1711,
+            1232,
+            896,
+            725,
+            536,
+            433,
+            1142,
+            450,
+            508,
+            47,
+            7,
+            1,
+        ],
+    }
