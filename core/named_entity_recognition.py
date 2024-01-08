@@ -11,7 +11,7 @@ def get_ner():
 def compute_ner(input: str) -> List[List[str]]:
     ner = get_ner()
 
-    works_of_art, people, products, locations, orgs = [], [], [], [], []
+    works_of_art, people, phrases = [], [], []
 
     for ent in ner(input).ents:
         if ent.label_ == "WORK_OF_ART":
@@ -19,10 +19,12 @@ def compute_ner(input: str) -> List[List[str]]:
         elif ent.label_ == "PERSON":
             people.append(ent.text)
         elif ent.label_ == "PRODUCT":
-            products.append(ent.text)
+            phrases.append(ent.text)
         elif ent.label_ == "LOC":
-            locations.append(ent.text)
+            phrases.append(ent.text)
+        elif ent.label_ == "GPE":
+            phrases.append(ent.text)
         elif ent.label_ == "ORG":
-            orgs.append(ent.text)
+            phrases.append(ent.text)
 
-    return [works_of_art, people, products, locations, orgs]
+    return [works_of_art, people, phrases]

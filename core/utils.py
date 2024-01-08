@@ -64,10 +64,7 @@ def get_ner_list_dict():
     return {
         0: "Works of art found:",
         1: "People mentioned:",
-        2: "Events mentioned:",
-        3: "Products mentioned:",
-        4: "Locations mentioned:",
-        5: "Organizations mentioned:",
+        2: "Phrases found:",
     }
 
 
