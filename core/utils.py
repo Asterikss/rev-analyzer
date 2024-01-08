@@ -166,3 +166,59 @@ class Model(Enum):
     LR = 1
     NB = 2
     SVM = 3
+
+
+@st.cache_data
+def get_vc_classificatioin_dict() -> Dict:
+    return {
+    "Class": [
+        "magazines",
+        "camera_photo",
+        "office_products",
+        "kitchen",
+        "cell_phones_service",
+        "computer_video_games",
+        "grocery_and_gourmet_food",
+        "tools_hardware",
+        "automotive",
+        "music_album",
+        "health_and_personal_care",
+        "electronics",
+        "outdoor_living",
+        "video",
+        "apparel",
+        "toys_games",
+        "sports_outdoors",
+        "books",
+        "software",
+        "baby",
+        "musical_and_instruments",
+        "beauty",
+        "jewelry_and_watches",
+    ],
+    "Frequency": [
+        779,
+        821,
+        122,
+        774,
+        351,
+        604,
+        934,
+        4,
+        233,
+        832,
+        763,
+        787,
+        488,
+        851,
+        672,
+        830,
+        799,
+        854,
+        699,
+        570,
+        73,
+        587,
+        393,
+    ],
+}
