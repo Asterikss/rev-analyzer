@@ -124,6 +124,13 @@ def get_page_bg_data(page: str) -> str:
         header {{visibility: hidden;}}
         footer {{visibility: hidden;}}
         #root > div:nth-child(1) > div > div > div > div > section > div {{padding-top: 0rem;}}
+        [data-testid="stSidebar"] > div:first-child {{
+            background-image: url("data:image/png;base64,{get_img_as_base64("images/dark_bg.jpg")}");
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: top left;
+        }}
         </style>
         """
     return ""
