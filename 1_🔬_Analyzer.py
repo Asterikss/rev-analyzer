@@ -6,6 +6,7 @@ from core.models import query_classifier
 from core.named_entity_recognition import compute_ner
 from core.wiki_service import get_wikipedia_summary
 from core.sentiment import get_sentiment_prediction, get_naive_sentiment
+from core.word_vectors import plot_words
 
 core.utils.initialize("Analyzer")
 
@@ -13,6 +14,7 @@ st.title(":blue[ReviewAnalyzer]", anchor=False)
 
 with st.sidebar:
     predict_sentiment = st.toggle("Predict sentiment", value=True)
+    plot_words_bt = st.toggle("Plot words", value=True)
     extract_entities = st.toggle("Extract entities", value=True)
     num_probs = st.slider("How many probabilities to display?", 1, 4, 1)
     with st.expander("Models in use"):
@@ -26,6 +28,8 @@ with st.sidebar:
             lr = st.toggle("Linear regression", value=False, disabled=True)
             nbayes = st.toggle("Naive Bayes", value=False, disabled=True)
             svm = st.toggle("SVM", value=False, disabled=True)
+    with st.expander("Plot words"):
+        normalize_wv = st.toggle("Normalize word vectors before casting them to lower dimension", value=True)
     with st.expander("Additional settings"):
         if predict_sentiment:
             values = st.slider(
@@ -137,6 +141,18 @@ if st.session_state.user_input or pressed_button_index is not None:
                     st.write(
                         f"Support Vector Machine: {':green[Positive]' if get_sentiment_prediction(input_to_analyze, Model.SVM) == 1.0 else ':red[Negative]'}"
                     )
+
+                if "one_time_info" not in st.session_state:
+                    st.info(
+                        'Info: All models (not including "Naive prediction") can only output Positive or Negative, which might give a wrong impression when supplied with neutral reviews'
+                    )
+                    st.session_state.one_time_info = "RobertKubica"
+
+
+        if plot_words_bt:
+            with st.container(border=True):
+                plot_words(input_to_analyze)
+
 
         if extract_entities:
             st.markdown(
