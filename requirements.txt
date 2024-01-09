@@ -1,5 +1,5 @@
 streamlit==1.29.0
-transformers==4.33.2
+transformers==4.36.0
 spacy==3.6.1
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0.tar.gz#egg=en_core_web_sm
 wikipedia-api==0.6.0
