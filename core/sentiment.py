@@ -1,5 +1,4 @@
 import streamlit as st
-import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import pickle
 from typing import Dict, Any
@@ -9,10 +8,6 @@ from core.utils import Model
 
 @st.cache_data
 def get_sid() -> Any:
-    try:
-        nltk.data.find("sentiment/vader_lexicon.zip")
-    except LookupError:
-        nltk.download("vader_lexicon")
     return SentimentIntensityAnalyzer()
 
 

@@ -284,3 +284,28 @@ def get_len_bins_classification_dict() -> Dict:
             1,
         ],
     }
+
+def download_nltk_packages() -> None:
+    nltk.data.path.append(os.getcwd() + '/nltk_data')
+    try:
+        nltk.find("corpora/wordnet.zip")
+        print("Wordnet found")
+    except LookupError:
+        nltk.download('wordnet')
+        print("Wordnet not found. Downloading...")
+
+    try:
+        nltk.data.find("sentiment/vader_lexicon.zip")
+        print("Vader_lexicon found")
+    except LookupError:
+        nltk.download("vader_lexicon")
+        print("Vader_lexicon not found. Downloading...")
+
+    try:
+        nltk.data.find("corpora/stopwords.zip")
+        print("Stopwords found")
+    except LookupError:
+        nltk.download("stopwords")
+        print("Stopwords not found. Downloading...")
+
+    st.session_state.check_packages_once = "MariuszPudzianowski"
