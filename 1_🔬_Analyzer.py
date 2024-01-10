@@ -10,6 +10,9 @@ from core.word_vectors import plot_words
 
 core.utils.initialize("Analyzer")
 
+if "check_packages_once" not in st.session_state:
+    core.utils.download_nltk_packages()
+
 st.title(":blue[ReviewAnalyzer]", anchor=False)
 
 with st.sidebar:
