@@ -4,6 +4,7 @@ import base64
 from enum import Enum
 import nltk
 import os
+import json
 
 
 def get_id2label_dict() -> Dict[int, str]:
@@ -293,13 +294,14 @@ def get_len_bins_classification_dict() -> Dict:
         ],
     }
 
+
 def download_nltk_packages() -> None:
-    nltk.data.path.append(os.getcwd() + '/nltk_data')
+    nltk.data.path.append(os.getcwd() + "/nltk_data")
     try:
         nltk.find("corpora/wordnet.zip")
         print("Wordnet found")
     except LookupError:
-        nltk.download('wordnet')
+        nltk.download("wordnet")
         print("Wordnet not found. Downloading...")
 
     try:
@@ -317,3 +319,9 @@ def download_nltk_packages() -> None:
         print("Stopwords not found. Downloading...")
 
     st.session_state.check_packages_once = "MariuszPudzianowski"
+
+
+@st.cache_data
+def load_lottiefile(path: str):
+    with open(path) as f:
+        return json.load(f)
