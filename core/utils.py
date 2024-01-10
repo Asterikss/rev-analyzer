@@ -2,6 +2,8 @@ import streamlit as st
 from typing import Dict, List
 import base64
 from enum import Enum
+import nltk
+import os
 
 
 def get_id2label_dict() -> Dict[int, str]:
@@ -71,7 +73,8 @@ def get_ner_list_dict():
 def get_predefined_options() -> List[str]:
     return [
         "Red Hot Chili Peppers on vinyl has been a disappointing experience.. I had to return both “By The Way” and “Stadium Arcadium” because there were skips on almost all of it.. Kind of made it seem like the record label just went cheap, which is a disservice to anyone that actually listens to their vinyl...This “Greatest Hits” compilation did not have the same problems as the other two I bought. It sounded as it should have, and there were no skips.",
-        "I've read a number of Stephen King's works over the past 15 years. King has always genuinely impressed me with his incredible eye for detail, his sense of place, and his ability to steadily pay out the rope line of a story's plot. Additionally, of course, he's the Jedi Master of creepiness. Although I was familiar with the premise of “The Stand”, it still scared me a lot",
+        "I've read a number of Stephen King's works over the past 15 years. King has always genuinely impressed me with his incredible eye for detail, his sense of place, and his ability to steadily pay out the rope line of a story's plot. Additionally, of course, he's the Jedi Master of creepiness. Although I was familiar with the premise of “The Stand”, it still scared me a lot.",
+        "I recently purchased the “Arctic” honey from the Nature's Bounty Grocery Store. This product is not just a mere sweetener; it's a culinary adventure. The rich, golden texture and the sublime, natural flavor of this honey transported me to the lush fields of New Zealand, where it's ethically sourced. I've used it in various recipes, and each time, it has elevated my dishes to a new level of excellence.",
     ]
 
 
@@ -115,6 +118,11 @@ def get_page_bg_data(page: str) -> str:
         # .stDeployButton {{
         #         visibility: hidden;
         #     }}
+        # This hids those stupid anchors ... but also removes pages from sidebar
+        # /* Hide the link button https://discuss.streamlit.io/t/hide-titles-link/19783/13 */
+        # .stApp a:first-child {{
+        #     display: none;
+        # }}
     elif page == "DataExplorer":
         return f"""
         <style>

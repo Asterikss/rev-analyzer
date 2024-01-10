@@ -194,7 +194,7 @@ if st.session_state.search_wiki:
         if wiki_output == "Page not found.":
             st.warning(
                 wiki_output
-                + " There might be an extra letter or a contraction in the phrase (e.g. 's). You can tweak it and search for it again or try a different review"
+                + " There might be an extra letter or a contraction in the phrase (e.g. 's). Or it might not exist. You can tweak it and search for it again or try a different review"
             )
             st.text_input(
                 "Wiki user input",
