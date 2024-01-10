@@ -6,15 +6,15 @@ from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from sklearn.decomposition import PCA
-from typing import Dict
+from typing import Dict, List, Any
 
 
 @st.cache_data
-def get_stop_wrods():
+def get_stop_wrods() -> List[str]:
     return stopwords.words("english")
 
 
-def get_processed_tokens(text, key_to_index):
+def get_processed_tokens(text, key_to_index) -> List[str]:
     text = re.sub(r"[^a-zA-Z\s]", "", text).lower()
 
     lemmer = WordNetLemmatizer()
@@ -29,7 +29,7 @@ def get_processed_tokens(text, key_to_index):
 
 
 @st.cache_resource
-def load_glove_vectors():
+def load_glove_vectors() -> Any:
     return KeyedVectors.load("models/glove-wiki-gigaword-50.model")
 
 
