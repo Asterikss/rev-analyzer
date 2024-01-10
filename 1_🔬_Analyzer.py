@@ -32,7 +32,9 @@ with st.sidebar:
             nbayes = st.toggle("Naive Bayes", value=False, disabled=True)
             svm = st.toggle("SVM", value=False, disabled=True)
     with st.expander("Plot words"):
-        normalize_wv = st.toggle("Normalize word vectors before casting them to lower dimension", value=True)
+        normalize_wv = st.toggle(
+            "Normalize word vectors before casting them to lower dimension", value=True
+        )
     with st.expander("Additional settings"):
         if predict_sentiment:
             values = st.slider(
@@ -42,6 +44,12 @@ with st.sidebar:
                 (-0.2, 0.2),
                 step=0.1,
             )
+    st.markdown(
+        """
+    <iframe src="https://ghbtns.com/github-btn.html?user=asterikss&repo=rev-analyzer&type=star&size=large&text=false" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+    """,
+        unsafe_allow_html=True,
+    )
 
 
 st.subheader("Enter a review to by analyzed below", anchor=False)
@@ -151,11 +159,9 @@ if st.session_state.user_input or pressed_button_index is not None:
                     )
                     st.session_state.one_time_info = "RobertKubica"
 
-
         if plot_words_bt:
             with st.container(border=True):
                 plot_words(input_to_analyze)
-
 
         if extract_entities:
             st.markdown(
