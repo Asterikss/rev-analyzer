@@ -301,22 +301,29 @@ def download_nltk_packages() -> None:
         nltk.find("corpora/wordnet.zip")
         print("Wordnet found")
     except LookupError:
-        nltk.download("wordnet")
         print("Wordnet not found. Downloading...")
+        nltk.download("wordnet")
 
     try:
         nltk.data.find("sentiment/vader_lexicon.zip")
         print("Vader_lexicon found")
     except LookupError:
-        nltk.download("vader_lexicon")
         print("Vader_lexicon not found. Downloading...")
+        nltk.download("vader_lexicon")
 
     try:
         nltk.data.find("corpora/stopwords.zip")
         print("Stopwords found")
     except LookupError:
-        nltk.download("stopwords")
         print("Stopwords not found. Downloading...")
+        nltk.download("stopwords")
+
+    try:
+        nltk.data.find("tokenizers/punkt")
+        print("Punkt found")
+    except LookupError:
+        print("Punkt not found. Downloading...")
+        nltk.download("punkt")
 
     st.session_state.check_packages_once = "MariuszPudzianowski"
 
