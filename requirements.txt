@@ -6,6 +6,6 @@ spacy==3.6.1
 streamlit==1.30.0
 streamlit_lottie==0.0.5
 torch==2.0.1
-transformers==4.33.2
+transformers>=4.36.0
 Wikipedia_API==0.6.0
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0.tar.gz#egg=en_core_web_sm
