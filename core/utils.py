@@ -106,7 +106,7 @@ def get_page_bg_data(page: str) -> str:
 
         [data-testid="stAppViewContainer"] > .main {{
             background-image: url("data:image/png;base64,{get_img_as_base64("assets/blue_bird.jpg")}");
-            background-position: top; 
+            background-position: 45% 0%; 
             background-repeat: no-repeat;
             background-attachment: local;
         }}

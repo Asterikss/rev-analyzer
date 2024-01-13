@@ -9,8 +9,6 @@ import core.utils as utils
 utils.initialize("DataExplorer")
 
 with st.sidebar:
-    for _ in range(27):
-        st.write("\n")
     st.markdown(
         """
     <iframe src="https://ghbtns.com/github-btn.html?user=asterikss&repo=rev-analyzer&type=star&size=large&text=false" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
@@ -25,8 +23,8 @@ lottie_json = utils.load_lottiefile("assets/AnimationParrot.json")
 c1, c2 = st.columns([23, 77])
 
 with c1:
-    st.markdown("<h1 style='color: #ef6910;'>DataExplorer</h1>", unsafe_allow_html=True)
     st.write("\n")
+    st.markdown("<h1 style='color: #ef6910;'>DataExplorer</h1>", unsafe_allow_html=True)
     st.write("\n")
 
 st.header("Classification", anchor=False, divider="orange")
