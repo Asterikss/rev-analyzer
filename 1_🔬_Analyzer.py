@@ -31,19 +31,25 @@ with st.sidebar:
             lr = st.toggle("Linear regression", value=False, disabled=True)
             nbayes = st.toggle("Naive Bayes", value=False, disabled=True)
             svm = st.toggle("SVM", value=False, disabled=True)
+        st.info(
+            'Info: All models (not including "Naive prediction") can only output Positive or Negative.'
+        )
     with st.expander("Plot words"):
         normalize_wv = st.toggle(
             "Normalize word vectors before casting them to lower dimension", value=True
         )
     with st.expander("Additional settings"):
         if predict_sentiment:
-            values = st.slider(
+            values_slider = st.slider(
                 'Select a range for "Neutral" for naive sentiment analysis',
                 -0.9,
                 0.9,
                 (-0.2, 0.2),
                 step=0.1,
             )
+        else:
+            values_slider = (-0.2, 0.2)
+
     st.markdown(
         """
     <iframe src="https://ghbtns.com/github-btn.html?user=asterikss&repo=rev-analyzer&type=star&size=large&text=false" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
@@ -121,9 +127,9 @@ if st.session_state.user_input or pressed_button_index is not None:
 
                     score_value = (
                         ":green[Positive]"
-                        if score >= 0.2
+                        if score >= values_slider[1]
                         else ":red[Negative]"
-                        if score <= -0.2
+                        if score <= values_slider[0]
                         else ":orange[Neutral]"
                     )
                     st.write(
@@ -153,15 +159,14 @@ if st.session_state.user_input or pressed_button_index is not None:
                         f"Support Vector Machine: {':green[Positive]' if get_sentiment_prediction(input_to_analyze, Model.SVM) == 1.0 else ':red[Negative]'}"
                     )
 
-                if "one_time_info" not in st.session_state:
-                    st.info(
-                        'Info: All models (not including "Naive prediction") can only output Positive or Negative, which might give a wrong impression when supplied with neutral reviews'
-                    )
-                    st.session_state.one_time_info = "RobertKubica"
-
         if plot_words_bt:
+            st.markdown(
+                """<hr style="height:5px;width:70%;border:none;color:#333;background-color:#333; margin-top:0; margin-bottom:0;" /> """,
+                unsafe_allow_html=True,
+            )
+
             with st.container(border=True):
-                plot_words(input_to_analyze)
+                plot_words(input_to_analyze, normalize_wv)
 
         if extract_entities:
             st.markdown(
