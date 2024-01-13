@@ -18,7 +18,7 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-font = "Helvetica" # Monaco , Georgia
+font = "Georgia"
 
 lottie_json = utils.load_lottiefile("assets/AnimationParrot.json")
 
@@ -26,6 +26,8 @@ c1, c2 = st.columns([23, 77])
 
 with c1:
     st.markdown("<h1 style='color: #ef6910;'>DataExplorer</h1>", unsafe_allow_html=True)
+    st.write("\n")
+    st.write("\n")
 
 st.header("Classification", anchor=False, divider="orange")
 
@@ -56,8 +58,9 @@ href="https://huggingface.co/distilbert-base-cased">distilbert-base-cased</a>
 on <a
 href="https://huggingface.co/datasets/yyu/amazon-attrprompt">amazon-attrpromptx</a>
 dataset for 3 epochs. Both can be found on Huggingface. The dataset has been used in this <a
-href="https://arxiv.org/abs/2306.15895">paper</a> Training code can be found at
-todo. I uploaded this model to huggingface model hub. It is available at <a
+href="https://arxiv.org/abs/2306.15895">paper</a> Training code can be found
+<a href="https://github.com/Asterikss/ai-notebooks/tree/master/rev_analyzer_build">here</a>.
+ I uploaded this model to huggingface model hub. It is available at <a
 href="https://huggingface.co/Asteriks/distilbert-cased-reviews-v1">Asteriks/distilbert-cased-reviews-v1</a>.
 </div>
 """, unsafe_allow_html=True)
@@ -86,8 +89,7 @@ st.header("Sentiment", anchor=False, divider="green")
 
 st.markdown( f"""
 <div style="font-size: larger; font-weight: bold; font-family: {font};">
-When it comes to sentiment prediction, the models were trained on amazon reviews dataset.
-It can be found on both <a
+For sentiment prediction, the models were trained on Amazon reviews dataset, accesible on both <a
 href="https://huggingface.co/datasets/hugginglearners/amazon-reviews-sentiment-analysis">huggingface</a>
 and <a href="https://www.kaggle.com/datasets/tarkkaanko/amazon">kaggle</a>.
 Here is an overview.
@@ -149,15 +151,15 @@ with fig_sent_2:
 st.markdown(f"""
 <div style="font-size: larger; font-weight: bold; font-family: {font};">
 Since the dataset is very imbalanced, oversampling (SMOTE) was integrated during the
-training of each model except Naive Bayes. Preprocessing steps involved: cleaning
-the reviews, tokenizing them, removing stopwords and stemming. These steps utilized the nltk library.
-After that the reviews where turned into matrixes using Term Frequency-Inverse Document Frequency 
-vectorizer (TF-IDF) from the scikit-learn library and fed into the models. Training code can be found
-at TODO
+training of each model except Naive Bayes. The preprocessing steps included: cleaning
+the reviews, tokenization, removing stopwords and stemming. These steps utilized the nltk library.
+Subsequently, the reviews where transformed into matrices using the Term Frequency-Inverse Document Frequency (TF-IDF)
+vectorizer from the scikit-learn library and fed into the models. Training code can be found
+<a href="https://github.com/Asterikss/ai-notebooks/tree/master/rev_analyzer_build">here</a>.
 </div>
 """, unsafe_allow_html=True)
 
 # This is supposed to be at the end of the file
 with c2:
-    with st_lottie_spinner(lottie_json, height=80, width=80, speed=0.65, quality="low"): # pyright: ignore[reportGeneralTypeIssues]
+    with st_lottie_spinner(lottie_json, height=90, width=90, speed=0.85, quality="low"): # pyright: ignore[reportGeneralTypeIssues]
         time.sleep(3)
