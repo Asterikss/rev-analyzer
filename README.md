@@ -15,7 +15,7 @@ while enabling heavy customization of the process.
 <a href="https://rev-analyzer.streamlit.app/" title="App">Try it out.</a>
 
 ## Demo
-TODO
+https://github.com/Asterikss/rev-analyzer/assets/110416923/f31f7ad9-a2d7-4f08-84ee-945ed1440b24
 
 ## Run Locally
 
