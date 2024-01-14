@@ -94,7 +94,6 @@ def get_page_bg_data(page: str) -> str:
         footer {{visibility: hidden;}}
         [data-testid="stSidebar"] > div:first-child {{
             background-image: url("data:image/png;base64,{get_img_as_base64("assets/dark_bg.jpg")}");
-            background-position: center; 
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: top left;
@@ -132,7 +131,6 @@ def get_page_bg_data(page: str) -> str:
         #root > div:nth-child(1) > div > div > div > div > section > div {{padding-top: 0rem;}}
         [data-testid="stSidebar"] > div:first-child {{
             background-image: url("data:image/png;base64,{get_img_as_base64("assets/dark_bg.jpg")}");
-            background-position: center; 
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: top left;

@@ -19,7 +19,7 @@ font = "Georgia"
 
 lottie_json = utils.load_lottiefile("assets/AnimationParrot.json")
 
-c1, c2 = st.columns([23, 77])
+c1, c2 = st.columns([24, 76])
 
 with c1:
     st.write("\n")
