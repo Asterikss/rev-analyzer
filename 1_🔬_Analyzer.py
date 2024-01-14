@@ -50,10 +50,9 @@ with st.sidebar:
         else:
             values_slider = (-0.2, 0.2)
 
-    st.markdown(
-        """
-    <iframe src="https://ghbtns.com/github-btn.html?user=asterikss&repo=rev-analyzer&type=star&size=large&text=false" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
-    """,
+    st.markdown("""
+        <a href="https://github.com/Asterikss/rev-analyzer" title="Git"><img src="https://img.shields.io/badge/-black?logo=github&link=https%3A%2F%2Fgithub.com%2FAsterikss%2Frev-analyzer" style="height:28px; width:auto;"></a>
+        """,
         unsafe_allow_html=True,
     )
 
