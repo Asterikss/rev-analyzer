@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="https://github.com/Asterikss/rev-analyzer/pulls" title="Contributing"><img src="https://img.shields.io/badge/contributions-welcome-orange"></a>
-    <a href="https://www.youtube.com/watch?v=WpMRV0r08CI&t=120s" title="AdamMalysz"><img src="https://img.shields.io/badge/animals_hurt_during_development-~0-green"></a>
+    <a href="https://www.youtube.com/watch?v=WpMRV0r08CI&t=120s" title="AdamMalysz"><img src="https://img.shields.io/badge/animals_hurt_during_development-~_0-green"></a>
     <a href="https://github.com/Asterikss/rev-analyzer/issues/new" title="Issues"><img src="https://img.shields.io/badge/open-issue-red"></a>
     <a href="https://github.com/Asterikss/rev-analyzer/subscription" title="Watch"><img src="https://img.shields.io/badge/watch_this-repo-yellow"></a>
 </p>
@@ -65,3 +65,7 @@ Run the app
 `https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0.tar.gz#egg=en_core_web_sm`,
 or you want to download it via the command line instead, be sure to run `python -m
 spacy download en_core_web_sm`, otherwise, you will encounter an error.
+
+### In the works
+
+Custom LSTM model with frozen pre-trained 100-dim embeddings
