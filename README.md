@@ -60,7 +60,7 @@ Run the app
 ```
 
 *The app needs to be run from the root of the project  
-*Best viewed at 125% browser zoom  
+*Best viewed at 125% browser zoom (assuming 1920x1080)
 *If this line from `requirements.txt` fails:
 `https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0.tar.gz#egg=en_core_web_sm`,
 or you want to download it via the command line instead, be sure to run `python -m
