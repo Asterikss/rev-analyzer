@@ -55,9 +55,9 @@ href="https://huggingface.co/distilbert-base-cased">distilbert-base-cased</a>
 on <a
 href="https://huggingface.co/datasets/yyu/amazon-attrprompt">amazon-attrpromptx</a>
 dataset for 3 epochs. Both can be found on Huggingface. The dataset has been used in this <a
-href="https://arxiv.org/abs/2306.15895">paper</a> Training code can be found
+href="https://arxiv.org/abs/2306.15895">paper</a>. Training code can be found
 <a href="https://github.com/Asterikss/ai-notebooks/tree/master/rev_analyzer_build">here</a>.
- I uploaded this model to huggingface model hub. It is available at <a
+ I uploaded this model to huggingface model hub. It's available at <a
 href="https://huggingface.co/Asteriks/distilbert-cased-reviews-v1">Asteriks/distilbert-cased-reviews-v1</a>.
 </div>
 """, unsafe_allow_html=True)
