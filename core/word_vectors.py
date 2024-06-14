@@ -43,7 +43,7 @@ def get_key_to_index(_glove_vectors) -> Dict:
 def get_scatterplot(glove_vectors, tokens, normalize_wv: bool=True):
     word_vectors = [glove_vectors.get_vector(t, norm=normalize_wv) for t in tokens]
 
-    twodim = PCA().fit_transform(word_vectors)[:, :2]
+    twodim = PCA(n_components=2).fit_transform(word_vectors)
 
     word_vectors_2d_dict = {
         "word": tokens,
