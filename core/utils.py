@@ -321,7 +321,7 @@ def download_nltk_packages() -> None:
         print("Punkt found")
     except LookupError:
         print("Punkt not found. Downloading...")
-        nltk.download("punkt")
+        nltk.download("punkt_tab")
 
     st.session_state.check_packages_once = "MariuszPudzianowski"
 
