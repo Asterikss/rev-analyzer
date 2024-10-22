@@ -317,7 +317,7 @@ def download_nltk_packages() -> None:
         nltk.download("stopwords")
 
     try:
-        nltk.data.find("tokenizers/punkt")
+        nltk.data.find("tokenizers/punkt_tab/english")
         print("Punkt found")
     except LookupError:
         print("Punkt not found. Downloading...")
