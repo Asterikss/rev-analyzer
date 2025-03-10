@@ -94,23 +94,27 @@ def get_page_bg_data(page: str) -> str:
         footer {{visibility: hidden;}}
         [data-testid="stSidebar"] > div:first-child {{
             background-image: url("data:image/png;base64,{get_img_as_base64("assets/dark_bg.jpg")}");
+            background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-position: top left;
+            <!-- background-position: top left; -->
         }}
 
         [data-testid="stHeader"] {{
             background: rgba(0,0,0,0);
         }}
 
-        [data-testid="stAppViewContainer"] > .main {{
+        [data-testid="stAppViewContainer"] {{
             background-image: url("data:image/png;base64,{get_img_as_base64("assets/blue_bird.jpg")}");
-            background-position: 45% 0%; 
+            background-size: cover;
             background-repeat: no-repeat;
             background-attachment: local;
+            <!-- background-position: 45% 0%; -->
         }}
         </style>
         """
+        # Used to be: [data-testid="stAppViewContainer"] > .main {{
+        #
         # Use this to remove the empty space on top of the page
         # #root > div:nth-child(1) > div > div > div > div > section > div {{padding-top: 0rem;}}
         #
