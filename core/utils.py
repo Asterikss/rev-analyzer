@@ -93,10 +93,10 @@ def get_page_bg_data(page: str) -> str:
         header {{visibility: hidden;}}
         footer {{visibility: hidden;}}
         [data-testid="stSidebar"] > div:first-child {{
-            background-image: url("data:image/png;base64,{get_img_as_base64("assets/dark_bg.jpg")}");
+            background-image: url("data:image/png;base64,{get_img_as_base64("assets/dark_bg_longer.jpg")}");
             background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            <!-- background-repeat: no-repeat; -->
+            <!-- background-attachment: fixed; -->
             <!-- background-position: top left; -->
         }}
 
@@ -107,8 +107,8 @@ def get_page_bg_data(page: str) -> str:
         [data-testid="stAppViewContainer"] {{
             background-image: url("data:image/png;base64,{get_img_as_base64("assets/blue_bird.jpg")}");
             background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: local;
+            <!-- background-repeat: no-repeat; -->
+            <!-- background-attachment: local; -->
             <!-- background-position: 45% 0%; -->
         }}
         </style>
@@ -134,10 +134,11 @@ def get_page_bg_data(page: str) -> str:
         footer {{visibility: hidden;}}
         #root > div:nth-child(1) > div > div > div > div > section > div {{padding-top: 0rem;}}
         [data-testid="stSidebar"] > div:first-child {{
-            background-image: url("data:image/png;base64,{get_img_as_base64("assets/dark_bg.jpg")}");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: top left;
+            background-image: url("data:image/png;base64,{get_img_as_base64("assets/dark_bg_longer.jpg")}");
+            background-size: cover;
+            <!-- background-repeat: no-repeat; -->
+            <!-- background-attachment: fixed; -->
+            <!-- background-position: top left; -->
         }}
         </style>
         """
