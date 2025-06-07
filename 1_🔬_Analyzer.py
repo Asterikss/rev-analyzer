@@ -197,7 +197,7 @@ if st.session_state.user_input or pressed_button_index is not None:
 
 if st.session_state.selected_text:
   with st.chat_message(name="human", avatar="🔍"):
-    st.write("Phrase choosen:  " + st.session_state.selected_text)
+    st.write("Chosen phrase:  " + st.session_state.selected_text)
   if not st.session_state.search_wiki:
     st.button("Search Wiki", on_click=core.utils.set_state, args=("search_wiki",))
 
