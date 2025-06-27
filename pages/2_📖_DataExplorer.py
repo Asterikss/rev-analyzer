@@ -57,9 +57,7 @@ href="https://huggingface.co/distilbert-base-cased">distilbert-base-cased</a>
 on <a
 href="https://huggingface.co/datasets/yyu/amazon-attrprompt">amazon-attrpromptx</a>
 dataset for 3 epochs. Both can be found on Huggingface. The dataset has been used in this <a
-href="https://arxiv.org/abs/2306.15895">paper</a>. Training code can be found
-<a href="https://github.com/Asterikss/ai-notebooks/tree/master/rev_analyzer_build">here</a>.
- I uploaded this model to huggingface model hub. It's available at <a
+href="https://arxiv.org/abs/2306.15895">paper</a>. I uploaded this model to huggingface model hub. It's available at <a
 href="https://huggingface.co/Asteriks/distilbert-cased-reviews-v1">Asteriks/distilbert-cased-reviews-v1</a>.
 </div>
 """,
@@ -165,8 +163,7 @@ Since the dataset is very imbalanced, oversampling (SMOTE) was integrated during
 training of each model except Naive Bayes. The preprocessing steps included: cleaning
 the reviews, tokenization, removing stopwords and stemming. These steps utilized the nltk library.
 Subsequently, the reviews where transformed into matrices using the Term Frequency-Inverse Document Frequency (TF-IDF)
-vectorizer from the scikit-learn library and fed into the models. Training code can be found
-<a href="https://github.com/Asterikss/ai-notebooks/tree/master/rev_analyzer_build">here</a>.
+vectorizer from the scikit-learn library and fed into the models.
 </div>
 """,
   unsafe_allow_html=True,

@@ -3,9 +3,7 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/Asterikss/rev-analyzer/issues/new" title="Issues"><img src="https://img.shields.io/badge/open-issue-red"></a>
-    <a href="https://www.youtube.com/watch?v=F5idhjPbjnM&t=6s" title="AdamMalysz"><img src="https://img.shields.io/badge/animals_hurt_during_development-~_0-green"></a>
-    <a href="https://github.com/Asterikss/rev-analyzer/subscription" title="Watch"><img src="https://img.shields.io/badge/watch_this-repo-yellow"></a>
+    <a href="" title=""><img src="https://img.shields.io/badge/animals_hurt_during_development-~_0-green"></a>
 </p>
 
 **RevAnalyzer** is an NLP app designed for analyzing and interpreting product
@@ -20,5 +18,6 @@ https://github.com/Asterikss/rev-analyzer/assets/110416923/f31f7ad9-a2d7-4f08-84
 
 ```bash
   nix develop .#impure
+  source .venv/bin/activate
   streamlit run 1_🔬_Analyzer.py
 ```
